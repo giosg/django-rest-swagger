@@ -91,17 +91,39 @@ class DocumentationGenerator(object):
         """
         Returns the first sentence of the first line of the class docstring
         """
-        return get_view_description(callback).split("\n")[0].split(".")[0]
+        return get_view_description(callback, html=True).split("\n")[0].split(".")[0]
 
     def __eval_method_docstring_(self, callback, method):
         """
-        Attempts to fetch the docs for a class method. Returns None
-        if the method does not exist
+        Attempts to fetch the docs for a class method. If method does not
+        exist tries class based views method name because we might have subclassed
+        GenericAPIView and some mixins. Returns None
+        if the method does not exist after second try.
         """
+        mapping = {
+            'post': ['create'],
+            'get': ['retrieve', 'list'],
+            'put': ['update'],
+            'patch': ['partial_update'],
+            'delete': ['destroy']
+        }
+        try:
+            doc_str = None
+            mapped = mapping[str(method).lower()]
+            for m in mapped:
+                try:
+                    doc_str = eval("callback.%s.__doc__" % (m))
+                except AttributeError:
+                    pass
+                if doc_str:
+                    return self.__markdownize_method_docs(trim_docstring(doc_str))
+        except AttributeError:
+            pass
         try:
             return eval("callback.%s.__doc__" % (str(method).lower()))
         except AttributeError:
             return None
+
 
     def __get_method_docs__(self, callback, method):
         """
@@ -109,13 +131,38 @@ class DocumentationGenerator(object):
         endpoint. If none are available, the class docstring
         will be used
         """
-        docs = self.__eval_method_docstring_(callback, method)
+        def t(d):
+            return  trim_docstring(d).split('\n')[0]
 
+        docs = self.__eval_method_docstring_(callback, method)
         if docs is None:
             docs = self.__get_description__(callback)
-        docs = trim_docstring(docs).split('\n')[0]
+            docs = t(docs)
+        else:
+            # Markdownise method docs.
+            # If __get_description__ gets called which in turn
+            # calls rest_frameworks get_view_description then
+            # markdown will be already supported but if we used our
+            # own method to get docs from specific method we need to
+            # apply markdown here.
+            docs = t(docs)
+            docs = self.__markdownize_method_docs(docs)
 
         return docs
+
+    def __markdownize_method_docs(self, docstr):
+        """
+        Markdownize methods docstring.
+        """
+        # Markdown is optional
+        try:
+            import markdown
+            extensions = ['headerid(level=2)']
+            safe_mode = False
+            md = markdown.Markdown(extensions=extensions, safe_mode=safe_mode)
+            return md.convert(docstr)
+        except ImportError:
+            return docstr
 
     def __get_nickname__(self, callback):
         """ Returns the APIView's nickname """
@@ -138,7 +185,7 @@ class DocumentationGenerator(object):
             if method_docs is not None:
                 docstring += method_docs
         else:
-            docstring = trim_docstring(get_view_description(callback))
+            docstring = trim_docstring(get_view_description(callback, html=True))
 
         docstring = self.__strip_params_from_docstring__(docstring)
         docstring = docstring.replace("\n", "<br/>")
@@ -286,7 +333,7 @@ class DocumentationGenerator(object):
             docstring = self.__eval_method_docstring_(callback, method)
             params += self.__build_query_params_from_docstring__(callback)
         else: # Otherwise, get the class level docstring
-            docstring = get_view_description(callback)
+            docstring = get_view_description(callback, html=True)
 
         if docstring is None:
             return params

@@ -1,3 +1,4 @@
+import urlparse
 from django.views.generic import View
 from django.utils.safestring import mark_safe
 from django.shortcuts import render_to_response, RequestContext
@@ -44,6 +45,10 @@ class SwaggerResourcesView(APIDocView):
 
     def get(self, request):
         apis = []
+        parsed = urlparse.urlparse(self.host)
+        host_with_path = '%s://%s%s' % (parsed.scheme, parsed.netloc, parsed.path)
+        self.request_path = parsed.path
+
         resources = self.get_resources()
 
         for path in resources:
@@ -51,18 +56,31 @@ class SwaggerResourcesView(APIDocView):
                 'path': "/%s" % path,
             })
 
+        parsed = urlparse.urlparse(self.host)
         return Response({
             'apiVersion': SWAGGER_SETTINGS.get('api_version', ''),
             'swaggerVersion': '1.2.4',
-            'basePath': self.host,
+            'basePath': host_with_path,
             'apis': apis
         })
 
     def get_resources(self):
         urlparser = UrlParser()
         apis = urlparser.get_apis(exclude_namespaces=SWAGGER_SETTINGS.get('exclude_namespaces'))
-        return urlparser.get_top_level_apis(apis)
+        # Swagger urlparser has bug that causes exclude_namespaces to not work in some cases
+        # In our case we dont want to include all urls from all modules to same documentation
+        # so instead we check that the apis url (current url) can be found from the endpoints url.
+        # If not then it belogn to another module and we dont include it to documentation.
+        filtered_apis = []
+        p = self.request_path.replace('api-docs/', '')
+        for endpoint in apis:
+            try:
+                str(endpoint['path']).index(p)
+                filtered_apis.append(endpoint)
+            except ValueError:
+                pass
 
+        return urlparser.get_top_level_apis(filtered_apis)
 
 class SwaggerApiView(APIDocView):
 
