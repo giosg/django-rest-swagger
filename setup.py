@@ -11,17 +11,17 @@ An API documentation generator for Swagger UI and Django REST Framework version 
 Installation
 From pip:
 
-pip install django-rest-swagger
+pip install django-rest2-swagger
 
 Docs & details @
-https://github.com/marcgibbons/django-rest-swagger
+https://github.com/marcgibbons/django-rest2-swagger
 """
 
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='django-rest-swagger',
+    name='django-rest2-swagger',
     version=VERSION,
     packages=['rest_framework2_swagger'],
     package_data={'rest_framework2_swagger': ['rest_framework2_swagger/templates/rest_framework2_swagger/*', 'rest_framework2_swagger/static/rest_framework2_swagger/*']},

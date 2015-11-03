@@ -4,7 +4,7 @@
 For older versions of Django REST Framework, see [Django REST Framework Docs](https://github.com/marcgibbons/django-rest-framework-docs)
 
 ## Installation
-From PyPI: `pip install django-rest-swagger`
+From PyPI: `pip install git+git://github.com/giosg/django-rest-swagger.git@rest_framework2_swagger`
 
 From source:
 - Download the source
