@@ -31,7 +31,7 @@ setup(
     long_description=README,
     install_requires=[
         'django>=1.5',
-        'djangorestframework>=2.3.5'
+        'git+git://github.com/giosg/django-rest-framework.git@rest_framework2',
     ],
 
     url='http://github.com/marcgibbons',

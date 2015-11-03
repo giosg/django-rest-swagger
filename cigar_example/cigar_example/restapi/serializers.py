@@ -1,5 +1,5 @@
-from rest_framework import serializers
-from rest_framework import fields
+from rest_framework2 import serializers
+from rest_framework2 import fields
 from cigar_example.app import models
 
 

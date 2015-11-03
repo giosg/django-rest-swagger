@@ -129,7 +129,7 @@ INSTALLED_APPS = (
     'django_nose',
     'cigar_example.app',
     'cigar_example.restapi',
-    'rest_framework',
+    'rest_framework2',
     'rest_framework_swagger',
     'django.contrib.admin',
 )

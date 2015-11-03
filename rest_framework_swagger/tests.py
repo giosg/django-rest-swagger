@@ -7,11 +7,11 @@ from rest_framework_swagger.docgenerator import DocumentationGenerator
 from django.contrib.admindocs.utils import trim_docstring
 
 from django.views.generic import View
-from rest_framework.views import APIView
-from rest_framework.generics import ListCreateAPIView
-from rest_framework import serializers
-from rest_framework.routers import DefaultRouter
-from rest_framework.viewsets import ModelViewSet
+from rest_framework2.views import APIView
+from rest_framework2.generics import ListCreateAPIView
+from rest_framework2 import serializers
+from rest_framework2.routers import DefaultRouter
+from rest_framework2.viewsets import ModelViewSet
 
 
 class MockApiView(APIView):

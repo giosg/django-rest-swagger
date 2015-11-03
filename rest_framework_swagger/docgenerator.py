@@ -3,8 +3,8 @@ Generates Documentation
 """
 import re
 from django.contrib.admindocs.utils import trim_docstring
-from rest_framework import viewsets
-from rest_framework.views import get_view_name, get_view_description
+from rest_framework2 import viewsets
+from rest_framework2.views import get_view_name, get_view_description
 
 
 class DocumentationGenerator(object):

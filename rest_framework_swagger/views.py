@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 from django.shortcuts import render_to_response, RequestContext
 from django.core.exceptions import PermissionDenied
 
-from rest_framework.views import Response
+from rest_framework2.views import Response
 from rest_framework_swagger.urlparser import UrlParser
 from rest_framework_swagger.apidocview import APIDocView
 from rest_framework_swagger.docgenerator import DocumentationGenerator

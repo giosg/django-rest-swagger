@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils.importlib import import_module
 from django.core.urlresolvers import RegexURLResolver, RegexURLPattern
 from django.contrib.admindocs.views import simplify_regex
-from rest_framework.views import APIView
+from rest_framework2.views import APIView
 
 from rest_framework_swagger.apidocview import APIDocView
 
@@ -150,9 +150,9 @@ class UrlParser(object):
 
     def __exclude_router_api_root__(self, callback):
         """
-        Returns True if the URL's callback is rest_framework.routers.APIRoot
+        Returns True if the URL's callback is rest_framework2.routers.APIRoot
         """
-        if callback.__module__ == 'rest_framework.routers':
+        if callback.__module__ == 'rest_framework2.routers':
             return True
 
         return False

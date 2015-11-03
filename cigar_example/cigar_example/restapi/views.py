@@ -1,5 +1,5 @@
-from rest_framework.views import Response, APIView
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework2.views import Response, APIView
+from rest_framework2.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from cigar_example.app.models import Cigar, Manufacturer, Country
 from serializers import CigarSerializer, ManufacturerSerializer, CountrySerializer
 
