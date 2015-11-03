@@ -5,11 +5,11 @@ from django.shortcuts import render_to_response, RequestContext
 from django.core.exceptions import PermissionDenied
 
 from rest_framework2.views import Response
-from rest_framework_swagger.urlparser import UrlParser
-from rest_framework_swagger.apidocview import APIDocView
-from rest_framework_swagger.docgenerator import DocumentationGenerator
+from rest_framework2_swagger.urlparser import UrlParser
+from rest_framework2_swagger.apidocview import APIDocView
+from rest_framework2_swagger.docgenerator import DocumentationGenerator
 
-from rest_framework_swagger import SWAGGER_SETTINGS
+from rest_framework2_swagger import SWAGGER_SETTINGS
 
 
 class SwaggerUIView(View):
@@ -19,7 +19,7 @@ class SwaggerUIView(View):
         if not self.has_permission(request):
             raise PermissionDenied()
 
-        template_name = "rest_framework_swagger/index.html"
+        template_name = "rest_framework2_swagger/index.html"
         data = {
             'settings': {
                 'discovery_url': "%sapi-docs/" % request.build_absolute_uri(),

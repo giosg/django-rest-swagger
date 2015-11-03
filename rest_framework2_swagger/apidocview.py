@@ -1,6 +1,6 @@
 from rest_framework2.views import APIView
 from rest_framework2.permissions import AllowAny, IsAdminUser, IsAuthenticated
-from rest_framework_swagger import SWAGGER_SETTINGS
+from rest_framework2_swagger import SWAGGER_SETTINGS
 
 class APIDocView(APIView):
 

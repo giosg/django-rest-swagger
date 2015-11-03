@@ -1,2 +1,2 @@
-recursive-include rest_framework_swagger/static *
-recursive-include rest_framework_swagger/templates *
+recursive-include rest_framework2_swagger/static *
+recursive-include rest_framework2_swagger/templates *

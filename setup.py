@@ -1,6 +1,6 @@
 import os
 from setuptools import setup
-from rest_framework_swagger import VERSION
+from rest_framework2_swagger import VERSION
 
 #README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
 README = """
@@ -23,8 +23,8 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 setup(
     name='django-rest-swagger',
     version=VERSION,
-    packages=['rest_framework_swagger'],
-    package_data={'rest_framework_swagger': ['rest_framework_swagger/templates/rest_framework_swagger/*', 'rest_framework_swagger/static/rest_framework_swagger/*']},
+    packages=['rest_framework2_swagger'],
+    package_data={'rest_framework2_swagger': ['rest_framework2_swagger/templates/rest_framework2_swagger/*', 'rest_framework2_swagger/static/rest_framework2_swagger/*']},
     include_package_data=True,
     license='FreeBSD License',
     description='Swagger UI for Django REST Framework 2.3+',

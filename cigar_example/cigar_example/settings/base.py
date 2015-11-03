@@ -116,7 +116,7 @@ NOSE_ARGS = [
     '--nocapture',
     '--nologcapture',
     '--with-coverage',
-    '--cover-package=rest_framework_swagger'
+    '--cover-package=rest_framework2_swagger'
 ]
 
 INSTALLED_APPS = (
@@ -130,7 +130,7 @@ INSTALLED_APPS = (
     'cigar_example.app',
     'cigar_example.restapi',
     'rest_framework2',
-    'rest_framework_swagger',
+    'rest_framework2_swagger',
     'django.contrib.admin',
 )
 

@@ -22,21 +22,21 @@ Backwards compatibility for earlier Django & Django REST Framework versions will
 ## Quick start
 **Note: This application will not work with Django REST Framework < 2.3**
 
-1. Add `rest_framework_swagger` to your `INSTALLED_APPS` setting like this:
+1. Add `rest_framework2_swagger` to your `INSTALLED_APPS` setting like this:
 
     ```python
         INSTALLED_APPS = (
             ...
-            'rest_framework_swagger',
+            'rest_framework2_swagger',
         )
     ```
 
-2. Include the rest_framework_swagger URLs to a path of your choice
+2. Include the rest_framework2_swagger URLs to a path of your choice
 
     ```python
     patterns = ('',
         ...
-        url(r'^api-docs/', include('rest_framework_swagger.urls')),
+        url(r'^api-docs/', include('rest_framework2_swagger.urls')),
     )
     ```
 
@@ -89,7 +89,7 @@ This project is built on the [Django REST Framework Docs](https://github.com/mar
 ```
 
 ## Example
-Included in this repository is a functioning example. Please clone the repo, copy or reference the `rest_framework_swagger` directory into the cigar_example folder. Install the required packages using `pip install -r requirements.txt`
+Included in this repository is a functioning example. Please clone the repo, copy or reference the `rest_framework2_swagger` directory into the cigar_example folder. Install the required packages using `pip install -r requirements.txt`
 
 ## Screenshots
 ![](screenshots/api-list.png)
